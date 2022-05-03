@@ -22,7 +22,8 @@ echo "🔨 Building ..."
 make setup
 make build
 
+popd
+
 echo "🧊 Packing ..."
 find . -type f -name "redis*.so" -exec gzip -v {} -c > "redis-timeseries-linux-${ARCH}-${TAG}.gz" \;
-
-popd
+ls "redis-timeseries*"
