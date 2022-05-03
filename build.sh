@@ -8,7 +8,7 @@ echo "🌿 Module(${MODULE})"
 echo "🦑 Arch(${ARCH})"
 echo "🏷️ Tag(${TAG})"
 
-if [[ ${MODULE} == "redis-timeseries" ]] ; then
+if [[ ${MODULE} == "redis_timeseries" ]] ; then
 
     if [[ -z ${TAG} || ${TAG} == "master" ]] ; then
         TAG="v1.6.9"
@@ -27,7 +27,7 @@ if [[ ${MODULE} == "redis-timeseries" ]] ; then
     popd
 
     echo "🧊 Packing ..."
-    find . -type f -name "redis*.so" -exec gzip -v {} -c > "redis-timeseries-linux-${ARCH}-${TAG}.gz" \;
+    find . -type f -name "redis*.so" -exec gzip -v {} -c > "redis_timeseries-linux-${ARCH}-${TAG}.gz" \;
 fi
 
 if [[ ${MODULE} == "redis" ]] ; then
