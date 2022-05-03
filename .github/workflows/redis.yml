@@ -47,7 +47,7 @@ jobs:
             apt-get install -q -y wget jq curl git build-essential libssl-dev
 
           run: |
-            build.sh
+            ./build.sh
 
       #- uses: actions/upload-artifact@v2
       #  with:
