@@ -26,4 +26,3 @@ popd
 
 echo "🧊 Packing ..."
 find . -type f -name "redis*.so" -exec gzip -v {} -c > "redis-timeseries-linux-${ARCH}-${TAG}.gz" \;
-ls "redis-timeseries*"
