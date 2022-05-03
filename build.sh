@@ -8,7 +8,7 @@ if [[ -z ${TAG} || ${TAG} == "master" ]] ; then
 fi
 
 echo "Cloning RedisTimeSeries git tag(${TAG})"
-git clone --quiet --single-branch --branch="${TAG}" --depth=1 --recursive "hhttps://github.com/RedisTimeSeries/RedisTimeSeries.git"
+git clone --quiet --single-branch --branch="${TAG}" --depth=1 --recursive "https://github.com/RedisTimeSeries/RedisTimeSeries.git"
 cd "RedisTimeSeries"
 git checkout --quiet --detach "${TAG}"
 git describe --tags
