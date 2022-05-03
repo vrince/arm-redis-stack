@@ -13,6 +13,7 @@ pushd "RedisTimeSeries"
 git checkout --quiet --detach "${TAG}"
 git describe --tags
 
+make setup
 make build
 
 popd
