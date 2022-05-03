@@ -1,0 +1,62 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  create:
+    tags:
+      - '*'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  beat:
+
+    strategy:
+      matrix:
+        arch: [armv6, armv7]
+        distro: [buster]
+
+    runs-on: ubuntu-latest
+
+    name: redis-timeseries ${{ matrix.arch }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set tag
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+
+      - uses: uraimo/run-on-arch-action@v2.1.1
+        name: Build redisTimeSeries (on arm)
+        id: build-redis
+        with:
+          arch: ${{ matrix.arch }}
+          distro: ${{ matrix.distro }}
+
+          githubToken: ${{ github.token }}
+
+          install: |
+            apt-get update -q -y
+            apt-get install -q -y wget jq curl git build-essential libssl-dev
+
+          run: |
+            build.sh
+
+      #- uses: actions/upload-artifact@v2
+      #  with:
+      #    name: redis-timeseries-${{ matrix.arch }}-${{ matrix.distro }}
+      #    path: redis-timeseries-*.tar.gz
+
+      #- name: Release
+      #  uses: softprops/action-gh-release@v1
+      #  if: startsWith(github.ref, 'refs/tags/')
+      #  with:
+      #    files: redis-timeseries-*.tar.gz
+
