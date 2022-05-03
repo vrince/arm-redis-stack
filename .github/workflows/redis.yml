@@ -44,7 +44,7 @@ jobs:
 
           install: |
             apt-get update -q -y
-            apt-get install -q -y wget jq curl git build-essential libssl-dev
+            apt-get install -q -y wget jq curl git build-essential libssl-dev python3
 
           run: |
             ./build.sh

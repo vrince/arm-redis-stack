@@ -1,5 +1,14 @@
 #!/bin/bash
 
-git clone --recursive https://github.com/RedisTimeSeries/RedisTimeSeries.git
-cd RedisTimeSeries
-make build
+TAG="${1}"
+
+if [[ -z ${TAG} || ${TAG} == "master" ]] ; then
+    TAG="v1.6.9"
+    echo "Using default tag(${TAG})"
+fi
+
+echo "Cloning RedisTimeSeries git tag(${TAG})"
+git clone --quiet --single-branch --branch="${TAG}" --depth=1 --recursive "hhttps://github.com/RedisTimeSeries/RedisTimeSeries.git"
+cd "RedisTimeSeries"
+git checkout --quiet --detach "${TAG}"
+git describe --tags
