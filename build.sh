@@ -9,6 +9,10 @@ fi
 
 echo "Cloning RedisTimeSeries git tag(${TAG})"
 git clone --quiet --single-branch --branch="${TAG}" --depth=1 --recursive "https://github.com/RedisTimeSeries/RedisTimeSeries.git"
-cd "RedisTimeSeries"
+pushd "RedisTimeSeries"
 git checkout --quiet --detach "${TAG}"
 git describe --tags
+
+make build
+
+popd
