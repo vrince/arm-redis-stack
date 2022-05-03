@@ -24,7 +24,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    name: redis-timeseries ${{ matrix.arch }}
+    name: redis-timeseries ${{ matrix.arch }} / ${{ matrix.distro }} 
 
     steps:
       - uses: actions/checkout@v2
