@@ -13,6 +13,9 @@ if [[ ${MODULE} == "redis_timeseries" ]] ; then
     if [[ -z ${TAG} || ${TAG} == "master" ]] ; then
         TAG="v1.6.9"
         echo "Using default tag(${TAG})"
+    else
+        TAG=$(echo ${TAG} | cut -d 'v' -f2)
+        TAG="v${TAG}"
     fi
 
     echo "🐏 Cloning ..."
@@ -35,6 +38,8 @@ if [[ ${MODULE} == "redis" ]] ; then
     if [[ -z ${TAG} || ${TAG} == "master" ]] ; then
         TAG="7.0"
         echo "Using default tag(${TAG})"
+    else
+        TAG=$(echo ${TAG} | cut -d 'v' -f2)
     fi
 
     echo "🐏 Cloning ..."
