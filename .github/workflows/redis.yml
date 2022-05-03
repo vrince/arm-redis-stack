@@ -47,16 +47,16 @@ jobs:
             apt-get install -q -y wget jq curl git build-essential openssl libssl-dev python3 python3-dev autoconf libtool m4 automake
 
           run: |
-            ./build.sh
+            ./build.sh ${{ matrix.arch }}
 
-      #- uses: actions/upload-artifact@v2
-      #  with:
-      #    name: redis-timeseries-${{ matrix.arch }}-${{ matrix.distro }}
-      #    path: redis-timeseries-*.tar.gz
+      - uses: actions/upload-artifact@v2
+        with:
+          name: redis-timeseries-${{ matrix.arch }}-${{ matrix.distro }}
+          path: redis-timeseries-*.gz
 
-      #- name: Release
-      #  uses: softprops/action-gh-release@v1
-      #  if: startsWith(github.ref, 'refs/tags/')
-      #  with:
-      #    files: redis-timeseries-*.tar.gz
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: redis-timeseries-*.tar.gz
 
