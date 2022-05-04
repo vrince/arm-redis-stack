@@ -56,7 +56,7 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/redis_timeseries-')
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: redis_timeseries-*.tar.gz
+          files: redis_timeseries-*.gz
 
