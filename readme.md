@@ -1,6 +1,4 @@
-# arm-RedisTimeSeries
-
-![](https://badgen.net/github/release/vrince/arm-redis-stack)
+# arm-redis-stack
 
 [![redis](https://github.com/vrince/arm-redis-stack/actions/workflows/redis.yml/badge.svg)](https://github.com/vrince/arm-redis-stack/actions/workflows/redis.yml)
 [![redis-timeseries](https://github.com/vrince/arm-redis-stack/actions/workflows/redis-timeseries.yml/badge.svg)](https://github.com/vrince/arm-redis-stack/actions/workflows/redis-timeseries.yml)
