@@ -9,6 +9,8 @@ Automated builds of [redis](https://github.com/redis/redis) and [RedisTimeSeries
 
 ### Redis
 
+Look into the "release" section of guthub, here is an example with `7.0.0` :
+
 ```bash
 wget https://github.com/vrince/arm-redis-stack/releases/download/redis%2F7.0.0/redis-linux-armv7-7.0.0.tar.gz
 tar -xf redis-linux-armv7-7.0.0.tar.gz 
