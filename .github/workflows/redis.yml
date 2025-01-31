@@ -23,7 +23,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    name: redis ${{ matrix.arch }} / ${{ matrix.distro }} 
+    name: ${{ matrix.arch }} / ${{ matrix.distro }} 
 
     steps:
       - uses: actions/checkout@v2
