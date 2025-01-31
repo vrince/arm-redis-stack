@@ -28,10 +28,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set tag
-        id: vars
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
-
       - uses: uraimo/run-on-arch-action@v2
         name: Build redis (on arm)
         id: build-redis
@@ -46,11 +42,11 @@ jobs:
             apt-get install -q -y wget jq curl git build-essential openssl libssl-dev libsystemd-dev
 
           run: |
-            ./build.sh redis ${{ matrix.arch }} ${{ steps.vars.outputs.tag }} ${{ matrix.distro }}
+            ./build.sh ${{ matrix.arch }} ${{ matrix.distro }} ${{ github.ref_name }} 
 
       - uses: actions/upload-artifact@v4
         with:
-          name: redis-${{ matrix.arch }}-${{ matrix.distro }}-${{ steps.vars.outputs.tag }} 
+          name: redis-${{ matrix.arch }}-${{ matrix.distro }}-${{ github.ref_name }}
           path: redis-*.gz
 
       - name: Release

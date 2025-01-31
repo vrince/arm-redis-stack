@@ -1,65 +1,31 @@
 #!/bin/bash
 
-MODULE="${1}"
-ARCH="${2:-x86_64}"
+ARCH="${1:-x86_64}"
+DISTRO="${2}"
 TAG="${3}"
-DISTRO="${4}"
 
-echo "🌿 Module(${MODULE})"
 echo "🦑 Arch(${ARCH})"
-echo "🫀 Disto(${DISTRO})"
+echo "🫀 Distro(${DISTRO})"
 echo "🏷️ Tag(${TAG})"
 
-if [[ -n ${TAG} ]] ; then
-    TAG=$(echo ${TAG} | cut -d '/' -f2)
+if [[ -z ${TAG} || ${TAG} == "master" ]] ; then
+    TAG="7.2.7"
+    echo "Using default tag(${TAG})"
 fi
 
-echo "🏷️ Tag(${TAG})"
+echo "🐏 Cloning ..."
+git clone --quiet --single-branch --branch="${TAG}" --depth=1 "https://github.com/redis/redis.git"
+pushd "redis"
+git checkout --quiet --detach "${TAG}"
+git describe --tags
 
-if [[ ${MODULE} == "redis_timeseries" ]] ; then
+echo "🔨 Building ..."
+make clean
+make PREFIX=${PWD}/install BUILD_TLS=yes USE_SYSTEMD=yes MALLOC=libc install
+popd
 
-    if [[ -z ${TAG} || ${TAG} == "master" ]] ; then
-        TAG="v1.12.5"
-        echo "Using default tag(${TAG})"
-    fi
+echo "🧊 Packing ..."
+tar -cvzf "redis-linux-${ARCH}-${DISTRO}-${TAG}.tar.gz" -C "./redis/install" .
 
-    echo "🐏 Cloning ..."
-    git clone --quiet --single-branch --branch="${TAG}" --depth=1 --recursive "https://github.com/RedisTimeSeries/RedisTimeSeries.git"
-    pushd "RedisTimeSeries"
-    git checkout --quiet --detach "${TAG}"
-    git describe --tags
-
-    ./deps/readies/bin/getpy3
-
-    echo "🔨 Building ..."
-    make setup
-    make build
-    popd
-
-    echo "🧊 Packing ..."
-    find . -type f -name "redis*.so" -exec gzip -v {} -c > "redis_timeseries-linux-${ARCH}-${DISTRO}-${TAG}.gz" \;
-fi
-
-if [[ ${MODULE} == "redis" ]] ; then
-
-    if [[ -z ${TAG} || ${TAG} == "master" ]] ; then
-        TAG="7.2.7"
-        echo "Using default tag(${TAG})"
-    fi
-
-    echo "🐏 Cloning ..."
-    git clone --quiet --single-branch --branch="${TAG}" --depth=1 "https://github.com/redis/redis.git"
-    pushd "redis"
-    git checkout --quiet --detach "${TAG}"
-    git describe --tags
-
-    echo "🔨 Building ..."
-    make clean
-    make PREFIX=${PWD}/install BUILD_TLS=yes USE_SYSTEMD=yes MALLOC=libc install
-    popd
-
-    echo "🧊 Packing ..."
-    tar -cvzf "redis-linux-${ARCH}-${DISTRO}-${TAG}.tar.gz" -C "./redis/install" .
-fi
 
 echo "✨ Done"
