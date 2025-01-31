@@ -27,6 +27,9 @@ if [[ ${MODULE} == "redis_timeseries" ]] ; then
     git checkout --quiet --detach "${TAG}"
     git describe --tags
 
+    ./deps/readies/bin/getpy3
+    ./system-setup.py
+
     echo "🔨 Building ..."
     make setup
     make build
