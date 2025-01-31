@@ -46,11 +46,11 @@ jobs:
             apt-get install -q -y wget jq curl git build-essential openssl libssl-dev libsystemd-dev
 
           run: |
-            ./build.sh redis ${{ matrix.arch }} ${{ steps.vars.outputs.tag }}
+            ./build.sh redis ${{ matrix.arch }} ${{ steps.vars.outputs.tag }} ${{ matrix.distro }}
 
       - uses: actions/upload-artifact@v4
         with:
-          name: redis-${{ matrix.arch }}-${{ matrix.distro }}
+          name: redis-${{ matrix.arch }}-${{ matrix.distro }}-${{ steps.vars.outputs.tag }} 
           path: redis-*.gz
 
       - name: Release

@@ -3,9 +3,11 @@
 MODULE="${1}"
 ARCH="${2:-x86_64}"
 TAG="${3}"
+DISTRO="${4}"
 
 echo "🌿 Module(${MODULE})"
 echo "🦑 Arch(${ARCH})"
+echo "🫀 Disto(${DISTRO})"
 echo "🏷️ Tag(${TAG})"
 
 if [[ -n ${TAG} ]] ; then
@@ -28,7 +30,6 @@ if [[ ${MODULE} == "redis_timeseries" ]] ; then
     git describe --tags
 
     ./deps/readies/bin/getpy3
-    ./system-setup.py
 
     echo "🔨 Building ..."
     make setup
@@ -36,7 +37,7 @@ if [[ ${MODULE} == "redis_timeseries" ]] ; then
     popd
 
     echo "🧊 Packing ..."
-    find . -type f -name "redis*.so" -exec gzip -v {} -c > "redis_timeseries-linux-${ARCH}-${TAG}.gz" \;
+    find . -type f -name "redis*.so" -exec gzip -v {} -c > "redis_timeseries-linux-${ARCH}-${DISTRO}-${TAG}.gz" \;
 fi
 
 if [[ ${MODULE} == "redis" ]] ; then
@@ -58,7 +59,7 @@ if [[ ${MODULE} == "redis" ]] ; then
     popd
 
     echo "🧊 Packing ..."
-    tar -cvzf "redis-linux-${ARCH}-${TAG}.tar.gz" -C "./redis/install" .
+    tar -cvzf "redis-linux-${ARCH}-${DISTRO}-${TAG}.tar.gz" -C "./redis/install" .
 fi
 
 echo "✨ Done"
