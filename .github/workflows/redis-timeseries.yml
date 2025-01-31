@@ -18,8 +18,8 @@ jobs:
 
     strategy:
       matrix:
-        arch: [armv6, armv7]
-        distro: [buster]
+        arch: [armv7]
+        distro: [bulleyes, bookworn]
 
     runs-on: ubuntu-latest
 
