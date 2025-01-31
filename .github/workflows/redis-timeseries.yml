@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         arch: [armv7]
-        distro: [bulleyes, bookworn]
+        distro: [bookworm, bullseye]
 
     runs-on: ubuntu-latest
 
