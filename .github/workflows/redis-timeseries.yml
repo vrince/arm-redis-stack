@@ -48,6 +48,11 @@ jobs:
           run: |
             ./build.sh redis_timeseries ${{ matrix.arch }} ${{ steps.vars.outputs.tag }}
 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: redis-${{ matrix.arch }}-${{ matrix.distro }}
+          path: redis-*.gz
+
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')

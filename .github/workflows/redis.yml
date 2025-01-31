@@ -18,8 +18,8 @@ jobs:
 
     strategy:
       matrix:
-        arch: [armv6, armv7]
-        distro: [buster]
+        arch: [armv7]
+        distro: [bookworm, bullseye]
 
     runs-on: ubuntu-latest
 
@@ -32,7 +32,7 @@ jobs:
         id: vars
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
 
-      - uses: uraimo/run-on-arch-action@v2.1.1
+      - uses: uraimo/run-on-arch-action@v2
         name: Build redis (on arm)
         id: build-redis
         with:
@@ -48,7 +48,7 @@ jobs:
           run: |
             ./build.sh redis ${{ matrix.arch }} ${{ steps.vars.outputs.tag }}
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         with:
           name: redis-${{ matrix.arch }}-${{ matrix.distro }}
           path: redis-*.gz
