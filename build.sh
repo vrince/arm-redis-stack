@@ -17,7 +17,7 @@ echo "🏷️ Tag(${TAG})"
 if [[ ${MODULE} == "redis_timeseries" ]] ; then
 
     if [[ -z ${TAG} || ${TAG} == "master" ]] ; then
-        TAG="v1.6.9"
+        TAG="v1.12.5"
         echo "Using default tag(${TAG})"
     fi
 
@@ -39,7 +39,7 @@ fi
 if [[ ${MODULE} == "redis" ]] ; then
 
     if [[ -z ${TAG} || ${TAG} == "master" ]] ; then
-        TAG="7.0"
+        TAG="7.2.7"
         echo "Using default tag(${TAG})"
     fi
 
